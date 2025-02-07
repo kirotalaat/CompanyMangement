@@ -14,6 +14,7 @@ namespace PresentationLayer
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<CompanyMangementDbcontext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+            builder.Services.AddScoped<IEmployeeReprosatory, EmployeeReprosatory>();
             builder.Services.AddScoped<IDepartmentReprosatory, DepartmrntReprosatory>();
             var app = builder.Build();
 

@@ -38,6 +38,7 @@ namespace PresentationLayer.Controllers
                 return View(department);
 
         }
+       
         public IActionResult Deatails(int? id , string view = "Deatails") {
 
             if (id == null )
@@ -87,6 +88,7 @@ namespace PresentationLayer.Controllers
             }
             return View(department);
         }
+        
         public IActionResult Delete(int? id) { 
         
             if(id == null)

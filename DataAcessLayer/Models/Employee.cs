@@ -34,7 +34,7 @@ namespace DataAcessLayer.Models
         [EmailAddress]
         public string Email { get; set; }
         [Phone]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public DateTime HireDate { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.Now;
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BissnessLogicLayer.Reprosatory
 {
-    internal class EmployeeReprosatory : GenericReprosatory<Employee> , IEmployeeReprosatory
+    public class EmployeeReprosatory : GenericReprosatory<Employee> , IEmployeeReprosatory
     {
 
         private readonly CompanyMangementDbcontext _dbcontext;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BissnessLogicLayer.Interfaces
 {
-    internal interface IEmployeeReprosatory : IGenericReprosatory<Employee>
+    public interface IEmployeeReprosatory : IGenericReprosatory<Employee>
     {
         IQueryable<Employee> GetEmployeesByAddress(string address);
                 
