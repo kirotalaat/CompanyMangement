@@ -37,7 +37,11 @@ namespace PresentationLayer.Controllers
         return View(employee);
           
         }
-        public IActionResult Deatails( int? id, string view = "Details") {
+       
+        
+        
+        
+        public IActionResult Deatails( int? id, string view = "Deatails") {
             if (id == null)
                 return BadRequest();
             var employee = EmployeeContext.GetById(id.Value);
@@ -47,6 +51,9 @@ namespace PresentationLayer.Controllers
         }
 
 
+      
+        
+        
         public IActionResult Edit(int?id) {
 
             return Deatails(id, "Edit");
@@ -74,6 +81,10 @@ namespace PresentationLayer.Controllers
         
         }
 
+   
+        
+        
+        
         public IActionResult Delete(int id) {
             return Deatails(id, "Delete");
         }

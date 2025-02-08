@@ -10,44 +10,49 @@
     <div class="mb-3">
         <label class="form-label" asp-for="Name"></label>
         <input class="form-control" asp-for="Name">
-        <span clas="text-danger" asp-validation-for="Name"></span>
+        <span class="text-danger" asp-validation-for="Name"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="HireDate"></label>
         <input class="form-control" asp-for="HireDate">
-        <span clas="text-danger" asp-validation-for="HireDate"></span>
+        <span class="text-danger" asp-validation-for="HireDate"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Address"></label>
         <input class="form-control" asp-for="Address">
-        <span clas="text-danger" asp-validation-for="Address"></span>
+        <span class="text-danger" asp-validation-for="Address"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Age"></label>
         <input class="form-control" asp-for="Age">
-        <span clas="text-danger" asp-validation-for="Age"></span>
+        <span class="text-danger" asp-validation-for="Age"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="CreationDate"></label>
         <input class="form-control" asp-for="CreationDate">
-        <span clas="text-danger" asp-validation-for="CreationDate"></span>
+        <span class="text-danger" asp-validation-for="CreationDate"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Email"></label>
         <input class="form-control" asp-for="Email">
-        <span clas="text-danger" asp-validation-for="Email"></span>
+        <span class="text-danger" asp-validation-for="Email"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="PhoneNumber"></label>
         <input class="form-control" asp-for="PhoneNumber">
-        <span clas="text-danger" asp-validation-for="PhoneNumber"></span>
+        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Salary"></label>
         <input class="form-control" asp-for="Salary">
-        <span clas="text-danger" asp-validation-for="Salary"></span>
+        <span class="text-danger" asp-validation-for="Salary"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 
 
 </form>
+@section ClientSideValidation {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+}
