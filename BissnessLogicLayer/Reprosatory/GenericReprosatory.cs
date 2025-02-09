@@ -1,5 +1,7 @@
 ﻿using BissnessLogicLayer.Interfaces;
 using DataAcessLayer;
+using DataAcessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,11 @@ namespace BissnessLogicLayer.Reprosatory
 
         public IEnumerable<T> GettAll()
         {
+            if (typeof(T)==typeof (Employee))
+            {
+                return (IEnumerable<T>)_dbcontext.Employees.Include(E => E.Department).ToList(); 
+            }
+
            return _dbcontext.Set<T>().ToList();
         }
 

@@ -9,9 +9,12 @@ namespace PresentationLayer.Controllers
     {
 
         private readonly IEmployeeReprosatory EmployeeContext;
-        public EmployeeController(IEmployeeReprosatory employeeReprosatory)
+        private readonly IDepartmentReprosatory departmentContext;
+
+        public EmployeeController(IEmployeeReprosatory employeeReprosatory , IDepartmentReprosatory departmentReprosatory)
         {
             EmployeeContext = employeeReprosatory;
+            departmentContext = departmentReprosatory;
         }
 
 
@@ -21,26 +24,32 @@ namespace PresentationLayer.Controllers
             return View(employees);
         }
 
-        public IActionResult Create() { 
-        
+        public IActionResult Create() {
+
+            var departments = departmentContext.GettAll();
+            ViewBag.Departments = departments;
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Employee employee) { 
-        
-        if (ModelState.IsValid)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Employee employee)
+        {
+            if (ModelState.IsValid)
             {
-
                 EmployeeContext.Add(employee);
                 return RedirectToAction(nameof(Index));
+
+
             }
-        return View(employee);
-          
+            ViewBag.Departments = departmentContext.GettAll();
+            return View(employee);
         }
-       
-        
-        
-        
+
+
+
+
+
+
         public IActionResult Deatails( int? id, string view = "Deatails") {
             if (id == null)
                 return BadRequest();

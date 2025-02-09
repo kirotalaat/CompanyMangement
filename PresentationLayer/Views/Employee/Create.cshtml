@@ -1,11 +1,16 @@
 ﻿@model Employee
 @{
     ViewData["Title"] = "Create";
+    var departments = new SelectList(@ViewBag.Departments, "Id", "Name");
+
 }
+
 
 <h1>Create</h1>
 
-<form asp-action="create" >
+<form asp-action="Create" > 
+    <div asp-validation-summary="All" class="text-danger"></div>
+
 
     <div class="mb-3">
         <label class="form-label" asp-for="Name"></label>
@@ -31,6 +36,13 @@
         <label class="form-label" asp-for="CreationDate"></label>
         <input class="form-control" asp-for="CreationDate">
         <span class="text-danger" asp-validation-for="CreationDate"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Department"></label>
+        <select class="form-control" asp-for="DepartmentId" asp-items="@departments">
+            <option value="@null">--- Select Department ---</option>
+        </select>
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Email"></label>
