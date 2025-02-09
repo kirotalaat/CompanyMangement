@@ -18,44 +18,6 @@ The **Company Management System** is a simple web application built using **ASP.
 - **Identity Framework** (For authentication and authorization)
 - **Bootstrap** (For UI styling)
 
-## ⚙️ Installation & Setup
-
-### 1️⃣ Prerequisites
-- .NET 8 SDK installed
-- SQL Server installed and running
-- Visual Studio or VS Code with C# extensions
-
-### 2️⃣ Clone the Repository
-```sh
-git clone https://github.com/your-username/company-management-system.git
-cd company-management-system
-```
-
-### 3️⃣ Configure Database
-1. Update the **appsettings.json** file with your SQL Server connection string:
-```json
-"ConnectionStrings": {
-    "defaultConnection": "server=YOUR_SERVER;database=CompanyDB;trusted_connection=true;MultipleActiveResultSets=true"
-}
-```
-2. Run database migrations:
-```sh
-dotnet ef database update
-```
-
-### 4️⃣ Run the Application
-```sh
-dotnet run
-```
-Open **http://localhost:5000** in your browser.
-
-## 👥 User Roles & Permissions
-| Role    | Permissions |
-|---------|------------|
-| Admin   | Manage users, roles, departments, employees |
-| Manager | Manage employees, view reports |
-| Employee | View personal profile, update basic details |
-
 ## 📌 API Endpoints (For Future Expansion)
 - `GET /employees` - Retrieve all employees
 - `POST /employees` - Add a new employee
@@ -68,15 +30,6 @@ Open **http://localhost:5000** in your browser.
 - 🔐 Two-factor authentication (2FA)
 - 📧 Email notifications for employee updates
 
-## 🤝 Contributing
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit your changes: `git commit -m 'Add new feature'`
-4. Push to the branch: `git push origin feature-name`
-5. Submit a pull request.
-
-## 📜 License
-This project is licensed under the **MIT License**.
 
 ---
 
