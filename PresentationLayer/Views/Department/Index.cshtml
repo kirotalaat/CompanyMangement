@@ -3,7 +3,24 @@
     ViewData["Title"] = "Department";
 }
 
+@if (TempData["Message"] is not null)
+{
+    <div id="tempAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
+    <script>
+        setTimeout(function () {
+            var alertBox = document.getElementById('tempAlert');
+            if (alertBox) {
+                alertBox.classList.remove('show');
+                alertBox.classList.add('fade');
+                setTimeout(() => alertBox.remove(), 250); // Ensures smooth removal
+            }
+        }, 2500);
+    </script>
+}
 
 @if(Model.Count() > 0)
 {

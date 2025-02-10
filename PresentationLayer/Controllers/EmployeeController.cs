@@ -36,7 +36,10 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                EmployeeContext.Add(employee);
+
+                int result =  EmployeeContext.Add(employee);
+                if (result > 0)
+                    TempData["Message"] = "Employee is created ";
                 return RedirectToAction(nameof(Index));
 
 

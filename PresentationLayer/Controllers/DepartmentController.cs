@@ -31,7 +31,9 @@ namespace PresentationLayer.Controllers
 
             if (ModelState.IsValid)
             {
-                context.Add(department);
+                int Result = context.Add(department);
+                if (Result > 0)
+                    TempData["Message"] = "Department is created";
                 return RedirectToAction(nameof(Index));
             }
             else
