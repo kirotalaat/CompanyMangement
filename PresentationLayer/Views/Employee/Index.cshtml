@@ -38,7 +38,9 @@
             {
                 <tr>
                     <td>@Employee.Name</td>
-                    <td>@Employee.Department.Name</td>
+                    <td>
+                        @(Employee.Department?.Name ?? "No Department Assigned")
+                   </td>
                     <td>@Employee.HireDate</td>
                     <td>@Employee.Address</td>
                     <td>@Employee.Age</td>
