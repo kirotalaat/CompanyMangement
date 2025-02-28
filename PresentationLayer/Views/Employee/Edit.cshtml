@@ -1,4 +1,4 @@
-﻿@model Employee
+﻿@model EmployeeViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -29,11 +29,11 @@
         <input class="form-control" asp-for="Age">
         <span clas="text-danger" asp-validation-for="Age"></span>
     </div>
-    <div class="mb-3">
+@*     <div class="mb-3">
         <label class="form-label" asp-for="CreationDate"></label>
         <input class="form-control" asp-for="CreationDate">
         <span clas="text-danger" asp-validation-for="CreationDate"></span>
-    </div>
+    </div> *@
     <div class="mb-3">
         <label class="form-label" asp-for="Email"></label>
         <input class="form-control" asp-for="Email">

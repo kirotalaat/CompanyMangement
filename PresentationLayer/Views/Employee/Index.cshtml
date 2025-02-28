@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Employee> 
+﻿@model IEnumerable<EmployeeViewModel> 
 
 @{
     ViewData ["title"] = "Employees";
@@ -11,7 +11,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <script>
+    @* <script>
         setTimeout(function () {
             var alertBox = document.getElementById('tempAlert');
             if (alertBox) {
@@ -20,7 +20,7 @@
                 setTimeout(() => alertBox.remove(), 250); // Ensures smooth removal
             }
         }, 2500);
-    </script>
+    </script> *@
 }
 
 
@@ -41,7 +41,6 @@
                 <td>@Html.DisplayNameFor(E => E.HireDate)</td>
                 <td>@Html.DisplayNameFor(E => E.Address)</td>
                 <td>@Html.DisplayNameFor(E => E.Age)</td>
-                <td>@Html.DisplayNameFor(E => E.CreationDate)</td>
                 <td>@Html.DisplayNameFor(E => E.Email)</td>
                 <td>@Html.DisplayNameFor(E => E.IsActive)</td>
                 <td>@Html.DisplayNameFor(E => E.PhoneNumber)</td>
@@ -64,7 +63,6 @@
                     <td>@Employee.HireDate</td>
                     <td>@Employee.Address</td>
                     <td>@Employee.Age</td>
-                    <td>@Employee.CreationDate</td>
                     <td>@Employee.Email</td>
                     <td>@Employee.IsActive</td>
                     <td>@Employee.PhoneNumber</td>

@@ -2,6 +2,7 @@ using BissnessLogicLayer.Interfaces;
 using DataAcessLayer;
 using Microsoft.EntityFrameworkCore;
 using BissnessLogicLayer.Reprosatory;
+using PresentationLayer.MappedProfiles;
 
 namespace PresentationLayer
 {
@@ -16,6 +17,7 @@ namespace PresentationLayer
             builder.Services.AddDbContext<CompanyMangementDbcontext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
             builder.Services.AddScoped<IEmployeeReprosatory, EmployeeReprosatory>();
             builder.Services.AddScoped<IDepartmentReprosatory, DepartmrntReprosatory>();
+            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile()));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -2,6 +2,8 @@
 using BissnessLogicLayer.Interfaces;
 using DataAcessLayer.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PresentationLayer.ViewModel;
+using AutoMapper;
 
 namespace PresentationLayer.Controllers
 {
@@ -10,18 +12,21 @@ namespace PresentationLayer.Controllers
 
         private readonly IEmployeeReprosatory EmployeeContext;
         private readonly IDepartmentReprosatory departmentContext;
+        private readonly IMapper mappper;
 
-        public EmployeeController(IEmployeeReprosatory employeeReprosatory , IDepartmentReprosatory departmentReprosatory)
+        public EmployeeController(IEmployeeReprosatory employeeReprosatory , IDepartmentReprosatory departmentReprosatory , IMapper mapper )
         {
             EmployeeContext = employeeReprosatory;
             departmentContext = departmentReprosatory;
+            mappper = mapper;
         }
 
 
         public IActionResult Index()
         {
             var employees = EmployeeContext.GettAll();
-            return View(employees);
+            var MappedEmployee= mappper.Map<IEnumerable<Employee>,IEnumerable<EmployeeViewModel>>( employees ); 
+            return View(MappedEmployee);
         }
 
         public IActionResult Create() {
@@ -32,12 +37,12 @@ namespace PresentationLayer.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create(EmployeeViewModel employee)
         {
             if (ModelState.IsValid)
             {
-
-                int result =  EmployeeContext.Add(employee);
+               var MappedEmployee = mappper.Map<EmployeeViewModel , Employee>(employee);   
+                int result =  EmployeeContext.Add(MappedEmployee);
                 if (result > 0)
                     TempData["Message"] = "Employee is created ";
                 return RedirectToAction(nameof(Index));
@@ -59,7 +64,8 @@ namespace PresentationLayer.Controllers
             var employee = EmployeeContext.GetById(id.Value);
             if (employee == null)
                 return NotFound();
-            return View(view,employee);
+            var MappedEmployee = mappper.Map<Employee, EmployeeViewModel>(employee);
+            return View(view,MappedEmployee);
         }
 
 
@@ -72,7 +78,7 @@ namespace PresentationLayer.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Employee employee , [FromRoute] int id  , string view = "Edit" ) {
+        public IActionResult Edit(EmployeeViewModel employee , [FromRoute] int id  , string view = "Edit" ) {
         
             if (id != employee.Id)
                 return BadRequest();
@@ -80,7 +86,8 @@ namespace PresentationLayer.Controllers
             {
                 try
                 {
-                    EmployeeContext.Update(employee);
+                    var MappedEmployee=mappper.Map<EmployeeViewModel,Employee>(employee);
+                    EmployeeContext.Update(MappedEmployee);
                     return RedirectToAction(nameof (Index));
                 }
                 catch (Exception ex)
@@ -101,7 +108,7 @@ namespace PresentationLayer.Controllers
             return Deatails(id, "Delete");
         }
         [HttpPost]
-        public IActionResult Delete( [FromRoute]int id , Employee employee ) { 
+        public IActionResult Delete( [FromRoute]int id , EmployeeViewModel employee ) { 
         
 
             if (id != employee.Id)
@@ -109,8 +116,8 @@ namespace PresentationLayer.Controllers
         if (ModelState.IsValid)
             {
                 try {
-                
-                EmployeeContext.Delete(employee);
+                var MappedEmployee=mappper.Map<EmployeeViewModel,Employee>(employee);
+                EmployeeContext.Delete(MappedEmployee);
                 return RedirectToAction(nameof (Index));
                 
                 
