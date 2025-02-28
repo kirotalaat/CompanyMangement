@@ -22,11 +22,26 @@ namespace PresentationLayer.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string SearchName)
         {
-            var employees = EmployeeContext.GettAll();
-            var MappedEmployee= mappper.Map<IEnumerable<Employee>,IEnumerable<EmployeeViewModel>>( employees ); 
+            IEnumerable<Employee> employees;
+            
+            if (string.IsNullOrEmpty(SearchName))
+            {
+                 employees = EmployeeContext.GettAll();
+            }
+           else
+            {
+                 employees = EmployeeContext.GetEmployeesBySearch(SearchName);
+            }
+              
+            
+            
+            
+            var MappedEmployee = mappper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(employees);
             return View(MappedEmployee);
+
+
         }
 
         public IActionResult Create() {

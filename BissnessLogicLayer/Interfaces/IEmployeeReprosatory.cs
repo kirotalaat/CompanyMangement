@@ -11,6 +11,6 @@ namespace BissnessLogicLayer.Interfaces
     public interface IEmployeeReprosatory : IGenericReprosatory<Employee>
     {
         IQueryable<Employee> GetEmployeesByAddress(string address);
-                
+        IQueryable<Employee> GetEmployeesBySearch(string search);
     }
 }

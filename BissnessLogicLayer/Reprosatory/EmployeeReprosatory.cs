@@ -21,6 +21,10 @@ namespace BissnessLogicLayer.Reprosatory
 
         public IQueryable<Employee> GetEmployeesByAddress(string address)
         => _dbcontext.Employees.Where(E => E.Address == address);
+
+        public IQueryable<Employee> GetEmployeesBySearch(string search)
+        
+          =>  _dbcontext.Employees.Where(E => E.Name.ToLower().Contains(search.ToLower()));
         
     }
 }
