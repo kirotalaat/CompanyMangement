@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BissnessLogicLayer.Reprosatory
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork , IDisposable
     {
         private readonly CompanyMangementDbcontext _dbcontext;
 
@@ -30,7 +30,9 @@ namespace BissnessLogicLayer.Reprosatory
 
         }
 
-
-
+        public void Dispose()
+        {
+            _dbcontext.Dispose();
+        }
     }
 }
