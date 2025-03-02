@@ -10,14 +10,16 @@ namespace PresentationLayer.Controllers
     public class EmployeeController : Controller
     {
 
-        private readonly IEmployeeReprosatory EmployeeContext;
-        private readonly IDepartmentReprosatory departmentContext;
+        //private readonly IEmployeeReprosatory EmployeeContext;
+        //private readonly IDepartmentReprosatory departmentContext;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper mappper;
 
-        public EmployeeController(IEmployeeReprosatory employeeReprosatory , IDepartmentReprosatory departmentReprosatory , IMapper mapper )
+        public EmployeeController( IUnitOfWork unitOfWork , IMapper mapper /*,IEmployeeReprosatory EmployeeContext,*/ /*, IDepartmentReprosatory departmentReprosatory*/ )
         {
-            EmployeeContext = employeeReprosatory;
-            departmentContext = departmentReprosatory;
+            //EmployeeContext = employeeReprosatory;
+            //departmentContext = departmentReprosatory;
+            _unitOfWork = unitOfWork;
             mappper = mapper;
         }
 
@@ -28,11 +30,11 @@ namespace PresentationLayer.Controllers
             
             if (string.IsNullOrEmpty(SearchName))
             {
-                 employees = EmployeeContext.GettAll();
+                 employees = _unitOfWork.EmployeeReprosatory.GettAll();
             }
            else
             {
-                 employees = EmployeeContext.GetEmployeesBySearch(SearchName);
+                 employees =  _unitOfWork.EmployeeReprosatory.GetEmployeesBySearch(SearchName);
             }
               
             
@@ -46,7 +48,7 @@ namespace PresentationLayer.Controllers
 
         public IActionResult Create() {
 
-            var departments = departmentContext.GettAll();
+            var departments = _unitOfWork.DepartmentReprosatory.GettAll();
             ViewBag.Departments = departments;
             return View();
         }
@@ -56,15 +58,17 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-               var MappedEmployee = mappper.Map<EmployeeViewModel , Employee>(employee);   
-                int result =  EmployeeContext.Add(MappedEmployee);
+               var MappedEmployee = mappper.Map<EmployeeViewModel , Employee>(employee);
+                
+                _unitOfWork.EmployeeReprosatory.Add(MappedEmployee);
+                int result = _unitOfWork.Complete();
                 if (result > 0)
                     TempData["Message"] = "Employee is created ";
                 return RedirectToAction(nameof(Index));
 
 
             }
-            ViewBag.Departments = departmentContext.GettAll();
+            ViewBag.Departments = _unitOfWork.DepartmentReprosatory.GettAll();
             return View(employee);
         }
 
@@ -76,7 +80,7 @@ namespace PresentationLayer.Controllers
         public IActionResult Deatails( int? id, string view = "Deatails") {
             if (id == null)
                 return BadRequest();
-            var employee = EmployeeContext.GetById(id.Value);
+            var employee =  _unitOfWork.EmployeeReprosatory.GetById(id.Value);
             if (employee == null)
                 return NotFound();
             var MappedEmployee = mappper.Map<Employee, EmployeeViewModel>(employee);
@@ -102,7 +106,8 @@ namespace PresentationLayer.Controllers
                 try
                 {
                     var MappedEmployee=mappper.Map<EmployeeViewModel,Employee>(employee);
-                    EmployeeContext.Update(MappedEmployee);
+                     _unitOfWork.EmployeeReprosatory.Update(MappedEmployee);
+                    _unitOfWork.Complete();
                     return RedirectToAction(nameof (Index));
                 }
                 catch (Exception ex)
@@ -132,8 +137,9 @@ namespace PresentationLayer.Controllers
             {
                 try {
                 var MappedEmployee=mappper.Map<EmployeeViewModel,Employee>(employee);
-                EmployeeContext.Delete(MappedEmployee);
-                return RedirectToAction(nameof (Index));
+                 _unitOfWork.EmployeeReprosatory.Delete(MappedEmployee);
+                    _unitOfWork.Complete();
+                    return RedirectToAction(nameof (Index));
                 
                 
                 

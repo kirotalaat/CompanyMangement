@@ -21,16 +21,16 @@ namespace BissnessLogicLayer.Reprosatory
 
 
 
-        public int Add(T item)
+        public void Add(T item)
         {
              _dbcontext.Add(item);
-             return _dbcontext.SaveChanges();
+          
         }
 
-        public int Delete(T item)
+        public void Delete(T item)
         {
             _dbcontext.Remove(item);
-            return _dbcontext.SaveChanges();
+            
         }
 
         public T GetById(int id)
@@ -47,10 +47,10 @@ namespace BissnessLogicLayer.Reprosatory
            return _dbcontext.Set<T>().ToList();
         }
 
-        public int Update(T item)
+        public void Update(T item)
         {
             _dbcontext.Update(item);
-            return _dbcontext.SaveChanges();
+            
         }
     }
 }

@@ -18,6 +18,7 @@ namespace PresentationLayer
             builder.Services.AddScoped<IEmployeeReprosatory, EmployeeReprosatory>();
             builder.Services.AddScoped<IDepartmentReprosatory, DepartmrntReprosatory>();
             builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile()));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

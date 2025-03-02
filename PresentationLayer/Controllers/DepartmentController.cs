@@ -6,17 +6,19 @@ namespace PresentationLayer.Controllers
     public class DepartmentController : Controller
     {
 
-        private readonly IDepartmentReprosatory context ;
+        //private readonly IDepartmentReprosatory context ;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DepartmentController(IDepartmentReprosatory _context)
+        public DepartmentController(/*IDepartmentReprosatory _context*/ IUnitOfWork unitOfWork)
         {
-            context = _context ;
+            
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
 
-            var departments = context.GettAll();
+            var departments = _unitOfWork.DepartmentReprosatory.GettAll();
             return View(departments);
         }
        
@@ -31,7 +33,10 @@ namespace PresentationLayer.Controllers
 
             if (ModelState.IsValid)
             {
-                int Result = context.Add(department);
+
+                
+                _unitOfWork.DepartmentReprosatory.Add(department);
+                int Result = _unitOfWork.Complete();
                 if (Result > 0)
                     TempData["Message"] = "Department is created";
                 return RedirectToAction(nameof(Index));
@@ -49,7 +54,7 @@ namespace PresentationLayer.Controllers
             }
 
 
-            var deparetment = context.GetById(id.Value);
+            var deparetment = _unitOfWork.DepartmentReprosatory.GetById(id.Value);
             if (deparetment == null) { 
             return NotFound();
             }
@@ -78,7 +83,8 @@ namespace PresentationLayer.Controllers
 
                 try
                 {
-                    context.Update(department);
+                    _unitOfWork.DepartmentReprosatory.Update(department);
+                    _unitOfWork.Complete();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
@@ -97,32 +103,14 @@ namespace PresentationLayer.Controllers
             {
                 return BadRequest();
             }
-            var department = context.GetById(id.Value);
+            var department = _unitOfWork.DepartmentReprosatory.GetById(id.Value);
             if (department == null)
                 return NotFound();
             return View(department);
         
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+         
         
         
         
@@ -136,7 +124,8 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
                 try
                 {
-                    context.Delete(department);
+                    _unitOfWork.DepartmentReprosatory.Delete(department);
+                    _unitOfWork.Complete();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
